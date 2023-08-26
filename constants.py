@@ -1,7 +1,7 @@
 TEAMS = [
     'Panthers',
     'Bandits',
-    'Warriors',
+    'Warriors'
 ]
 
 PLAYERS = [{

@@ -8,26 +8,14 @@ from constants import PLAYERS, TEAMS
 
 def clean_data(data):
     """Cleaning function for 'PLAYERS' data"""
-    DATA_COPY = copy.deepcopy(data)
-    for item in DATA_COPY:
+    for item in data:
         item['height'] = int(item['height'].split(" ")[0])
         if item['experience'] == 'YES':
             item['experience'] = True
         else:
             item['experience'] = False
         item['guardians'] = item['guardians'].split(" and ")
-    return DATA_COPY
-
-
-# Create a copy of TEAMS and PLAYERS data
-TEAMS = copy.deepcopy(TEAMS)
-
-PLAYERS = clean_data(PLAYERS)
-
-# Create an object for each team
-TEAMS = [{'team_name': team_name, 'players': []} for team_name in TEAMS]
-# Sort the PLAYERS list by experience
-PLAYERS.sort(key=itemgetter('experience'))
+    return data
 
 
 def clear_screen():
@@ -67,14 +55,14 @@ BASKETBALL TEAM STATS TOOL
 """)
 
 
-def main_menu():
+def main_menu(teams):
     """Main menu logic"""
     while True:
         draw_main_menu()
         menu_selection = input("Enter an option: ").lower()
         if menu_selection == 'a':
             clear_screen()
-            team_selection_menu()
+            team_selection_menu(teams)
         elif menu_selection == 'b':
             clear_screen()
             print("Thanks for using the Basketball Team Stats tool! Bye! \n")
@@ -86,23 +74,23 @@ def main_menu():
     
 
 
-def draw_team_menu():
+def draw_team_menu(teams):
     """Draw the team stats menu and return the user's menu selection"""
     print("Which team's stats would you like to view? \n")
-    for count, team in enumerate(TEAMS):
+    for count, team in enumerate(teams):
         print(f"  {count+1}) {team['team_name']}")
     print("")
 
 
 
-def team_selection_menu():
+def team_selection_menu(teams):
     """Team selection menu logic"""
     while True:
-        draw_team_menu()
+        draw_team_menu(teams)
         menu_selection = input("Enter an option: ").lower()
         try:
-            if int(menu_selection) in range(1, len(TEAMS)+1):
-                display_team_stats(TEAMS[int(menu_selection)-1])
+            if int(menu_selection) in range(1, len(teams)+1):
+                display_team_stats(teams[int(menu_selection)-1])
                 break
             else:
                 clear_screen()
@@ -124,7 +112,7 @@ Team: {team['team_name']} Stats
 Total players: {len(team['players'])}
 Total of experienced players: {len([exp_player for exp_player in team['players'] if exp_player['experience']])}
 Total of inexperienced players: {len([exp_player for exp_player in team['players'] if not exp_player['experience']])}
-Average height: {average_team_height(team)}
+Average height: {round(average_team_height(team), 2)}
 
 Players on Team:
     {", ".join([player['name'] for player in team['players']])}
@@ -136,15 +124,29 @@ Guardians:
     clear_screen()
 
 
-def balance_teams(players_list):
+def balance_teams(teams, players):
     """Evenly distribute the players to available teams"""
-    while players_list:
-        for team in TEAMS:
-            team['players'].append(PLAYERS.pop())
+    while players:
+        for team in teams:
+            team['players'].append(players.pop())
     return True
 
 
 if __name__ == '__main__':
-    balance_teams(PLAYERS)
+    # Create a copy of TEAMS and PLAYERS data
+    TEAMS = TEAMS
+    PLAYERS = PLAYERS
+
+    teams_copy = copy.deepcopy(TEAMS)
+    players_copy = copy.deepcopy(PLAYERS)
+
+    # Clean players data
+    clean_data(players_copy)
+    # Create an object for each team
+    teams_objects = [{'team_name': team_name, 'players': []} for team_name in teams_copy]
+    # Sort the players list by experience
+    players_copy.sort(key=itemgetter('experience'))
+
+    balance_teams(teams_objects, players_copy)
     clear_screen()
-    main_menu()
+    main_menu(teams_objects)
