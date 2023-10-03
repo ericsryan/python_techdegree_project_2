@@ -1,22 +1,32 @@
 # Basketball Team Stats Tool
-In this project you will be writing a program that reads from the "constants" data (`PLAYERS` and `TEAMS`) in `constants.py`. This data will need to be translated into a new collection of your choosing and the fields need to be changed to something that makes more sense for Python to do its comparisons.
 
+This is a command-line tool built in Python to display stats for a basketball team. The tool allows the user to view the stats for each team, including the total number of players, the number of experienced and inexperienced players, the average height of the team, and the names of the players and their guardians.
 
-**NOTE**: Python has no concept of actual constants like some other languages out there. But it is a convention in Python to treat ALL CAPS variables as if they are in-fact constants.
+## Installation
 
+1. Clone the repository to your local machine.
+```bash
+git clone https://github.com/ericsryan/python_techdegree_project_2.git
+```
 
-**Steps to get started:**
+2. Navigate to the project directory.
+```bash
+cd python_techdegree_project_2
+```
 
-1. Create a new empty script file called `app.py` or `application.py`
+3. Run the command `python app.py` to start the tool.
+```bash
+python app.py
+```
 
-2. Inside this new file, you will want a Dunder Main statement:
-   For a refresh on Dunder Main:
-   https://teamtreehouse.com/library/understanding-dunder-main-main
+## How to Use
 
-3. Any print statements or function calls you will want to be inside Dunder Main or inside a main function call which is nested inside Dunder Main.
-   If you need a refresh, check out the supplied Project 1 files/workspace for an example.
-   
+1. The tool will display a main menu with two options: "Display Team Stats" and "Quit".
+2. Select "Display Team Stats" to view the stats for each team.
+3. Select the team you want to view the stats for.
+4. The tool will display the stats for the selected team, including the total number of players, the number of experienced and inexperienced players, the average height of the team, and the names of the players and their guardians.
+5. Press ENTER to return to the main menu.
 
+## Credits
 
-If you get stuck, try to work through the problem. Sometimes it helps to try to write/draw out your steps on paper in the order your program should run in and solve each step 1 at a time. If you are still stuck be sure to reach out in the Python Techdegree #unit-02 Slack channel.
-
+This project was built as part of the Python Development Techdegree program by Treehouse.
